@@ -39,7 +39,9 @@
 
 
 <h2>Active posts</h2>
+
 <% matching_posts = Post.where({ :board_id => @the_board.id}).order({ :expires_on => :asc})%>
+
 <table border="1">
   <tr>
     <th>Title</th>
@@ -47,7 +49,28 @@
     <th>Posted on</th>
     <th>Expires on</th>
   </tr>
+<% matching_posts.each do |a_post| %>
+  <tr>
+    <td><%= a_post.title %></td>
+    <td><%= a_post.body %></td>
+    <td><%= a_post.created_at.strftime("%b %e, %Y") %> on</td>
+    <td><%= a_post.expires_on.strftime("%b %e, %Y") %> on</td>
+  </tr>
+<% end %>
 
+</table>
+
+<h2>Expired posts</h2>
+
+<% matching_posts = Post.where({ :board_id => @the_board.id}).order({ :expires_on => :desc})%>
+
+<table border="1">
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th>Posted on</th>
+    <th>Expires on</th>
+  </tr>
 <% matching_posts.each do |a_post| %>
   <tr>
     <td><%= a_post.title %></td>
